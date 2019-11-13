@@ -466,6 +466,28 @@ public class Migrate_Contacts implements TalendJob {
 		tSalesforceInput_1_onSubJobError(exception, errorComponent, globalMap);
 	}
 
+	public void tSalesforceInput_2_error(Exception exception,
+			String errorComponent, final java.util.Map<String, Object> globalMap)
+			throws TalendException {
+
+		end_Hash.put(errorComponent, System.currentTimeMillis());
+
+		status = "failure";
+
+		tSalesforceInput_2_onSubJobError(exception, errorComponent, globalMap);
+	}
+
+	public void tFileOutputDelimited_8_error(Exception exception,
+			String errorComponent, final java.util.Map<String, Object> globalMap)
+			throws TalendException {
+
+		end_Hash.put(errorComponent, System.currentTimeMillis());
+
+		status = "failure";
+
+		tSalesforceInput_2_onSubJobError(exception, errorComponent, globalMap);
+	}
+
 	public void tFileInputDelimited_1_error(Exception exception,
 			String errorComponent, final java.util.Map<String, Object> globalMap)
 			throws TalendException {
@@ -679,28 +701,6 @@ public class Migrate_Contacts implements TalendJob {
 		tJava_4_onSubJobError(exception, errorComponent, globalMap);
 	}
 
-	public void tSalesforceInput_2_error(Exception exception,
-			String errorComponent, final java.util.Map<String, Object> globalMap)
-			throws TalendException {
-
-		end_Hash.put(errorComponent, System.currentTimeMillis());
-
-		status = "failure";
-
-		tSalesforceInput_2_onSubJobError(exception, errorComponent, globalMap);
-	}
-
-	public void tFileOutputDelimited_8_error(Exception exception,
-			String errorComponent, final java.util.Map<String, Object> globalMap)
-			throws TalendException {
-
-		end_Hash.put(errorComponent, System.currentTimeMillis());
-
-		status = "failure";
-
-		tSalesforceInput_2_onSubJobError(exception, errorComponent, globalMap);
-	}
-
 	public void tFileInputDelimited_2_error(Exception exception,
 			String errorComponent, final java.util.Map<String, Object> globalMap)
 			throws TalendException {
@@ -828,6 +828,17 @@ public class Migrate_Contacts implements TalendJob {
 
 	}
 
+	public void tSalesforceInput_2_onSubJobError(Exception exception,
+			String errorComponent, final java.util.Map<String, Object> globalMap)
+			throws TalendException {
+
+		resumeUtil.addLog("SYSTEM_LOG", "NODE:" + errorComponent, "", Thread
+				.currentThread().getId() + "", "FATAL", "",
+				exception.getMessage(),
+				ResumeUtil.getExceptionStackTrace(exception), "");
+
+	}
+
 	public void tFileInputDelimited_1_onSubJobError(Exception exception,
 			String errorComponent, final java.util.Map<String, Object> globalMap)
 			throws TalendException {
@@ -895,17 +906,6 @@ public class Migrate_Contacts implements TalendJob {
 	}
 
 	public void tJava_4_onSubJobError(Exception exception,
-			String errorComponent, final java.util.Map<String, Object> globalMap)
-			throws TalendException {
-
-		resumeUtil.addLog("SYSTEM_LOG", "NODE:" + errorComponent, "", Thread
-				.currentThread().getId() + "", "FATAL", "",
-				exception.getMessage(),
-				ResumeUtil.getExceptionStackTrace(exception), "");
-
-	}
-
-	public void tSalesforceInput_2_onSubJobError(Exception exception,
 			String errorComponent, final java.util.Map<String, Object> globalMap)
 			throws TalendException {
 
@@ -2287,15 +2287,6 @@ public class Migrate_Contacts implements TalendJob {
 
 			}// end the resume
 
-			if (resumeEntryMethodName == null || globalResumeTicket) {
-				resumeUtil.addLog("CHECKPOINT",
-						"CONNECTION:SUBJOB_OK:tSalesforceInput_1:OnSubjobOk",
-						"", Thread.currentThread().getId() + "", "", "", "",
-						"", "");
-			}
-
-			tFileInputDelimited_1Process(globalMap);
-
 		} catch (java.lang.Exception e) {
 
 			TalendException te = new TalendException(e, currentComponent,
@@ -2349,6 +2340,692 @@ public class Migrate_Contacts implements TalendJob {
 		}
 
 		globalMap.put("tSalesforceInput_1_SUBPROCESS_STATE", 1);
+	}
+
+	public static class row14Struct implements
+			routines.system.IPersistableRow<row14Struct> {
+		final static byte[] commonByteArrayLock_DF2019_Migrate_Contacts = new byte[0];
+		static byte[] commonByteArray_DF2019_Migrate_Contacts = new byte[0];
+		protected static final int DEFAULT_HASHCODE = 1;
+		protected static final int PRIME = 31;
+		protected int hashCode = DEFAULT_HASHCODE;
+		public boolean hashCodeDirty = true;
+
+		public String loopKey;
+
+		public String Id;
+
+		public String getId() {
+			return this.Id;
+		}
+
+		public String Name;
+
+		public String getName() {
+			return this.Name;
+		}
+
+		public String ExternalID__c;
+
+		public String getExternalID__c() {
+			return this.ExternalID__c;
+		}
+
+		@Override
+		public int hashCode() {
+			if (this.hashCodeDirty) {
+				final int prime = PRIME;
+				int result = DEFAULT_HASHCODE;
+
+				result = prime * result
+						+ ((this.Id == null) ? 0 : this.Id.hashCode());
+
+				this.hashCode = result;
+				this.hashCodeDirty = false;
+			}
+			return this.hashCode;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			final row14Struct other = (row14Struct) obj;
+
+			if (this.Id == null) {
+				if (other.Id != null)
+					return false;
+
+			} else if (!this.Id.equals(other.Id))
+
+				return false;
+
+			return true;
+		}
+
+		public void copyDataTo(row14Struct other) {
+
+			other.Id = this.Id;
+			other.Name = this.Name;
+			other.ExternalID__c = this.ExternalID__c;
+
+		}
+
+		public void copyKeysDataTo(row14Struct other) {
+
+			other.Id = this.Id;
+
+		}
+
+		private String readString(ObjectInputStream dis) throws IOException {
+			String strReturn = null;
+			int length = 0;
+			length = dis.readInt();
+			if (length == -1) {
+				strReturn = null;
+			} else {
+				if (length > commonByteArray_DF2019_Migrate_Contacts.length) {
+					if (length < 1024
+							&& commonByteArray_DF2019_Migrate_Contacts.length == 0) {
+						commonByteArray_DF2019_Migrate_Contacts = new byte[1024];
+					} else {
+						commonByteArray_DF2019_Migrate_Contacts = new byte[2 * length];
+					}
+				}
+				dis.readFully(commonByteArray_DF2019_Migrate_Contacts, 0,
+						length);
+				strReturn = new String(commonByteArray_DF2019_Migrate_Contacts,
+						0, length, utf8Charset);
+			}
+			return strReturn;
+		}
+
+		private void writeString(String str, ObjectOutputStream dos)
+				throws IOException {
+			if (str == null) {
+				dos.writeInt(-1);
+			} else {
+				byte[] byteArray = str.getBytes(utf8Charset);
+				dos.writeInt(byteArray.length);
+				dos.write(byteArray);
+			}
+		}
+
+		public void readData(ObjectInputStream dis) {
+
+			synchronized (commonByteArrayLock_DF2019_Migrate_Contacts) {
+
+				try {
+
+					int length = 0;
+
+					this.Id = readString(dis);
+
+					this.Name = readString(dis);
+
+					this.ExternalID__c = readString(dis);
+
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+
+				}
+
+			}
+
+		}
+
+		public void writeData(ObjectOutputStream dos) {
+			try {
+
+				// String
+
+				writeString(this.Id, dos);
+
+				// String
+
+				writeString(this.Name, dos);
+
+				// String
+
+				writeString(this.ExternalID__c, dos);
+
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+
+		}
+
+		public String toString() {
+
+			StringBuilder sb = new StringBuilder();
+			sb.append(super.toString());
+			sb.append("[");
+			sb.append("Id=" + Id);
+			sb.append(",Name=" + Name);
+			sb.append(",ExternalID__c=" + ExternalID__c);
+			sb.append("]");
+
+			return sb.toString();
+		}
+
+		/**
+		 * Compare keys
+		 */
+		public int compareTo(row14Struct other) {
+
+			int returnValue = -1;
+
+			returnValue = checkNullsAndCompare(this.Id, other.Id);
+			if (returnValue != 0) {
+				return returnValue;
+			}
+
+			return returnValue;
+		}
+
+		private int checkNullsAndCompare(Object object1, Object object2) {
+			int returnValue = 0;
+			if (object1 instanceof Comparable && object2 instanceof Comparable) {
+				returnValue = ((Comparable) object1).compareTo(object2);
+			} else if (object1 != null && object2 != null) {
+				returnValue = compareStrings(object1.toString(),
+						object2.toString());
+			} else if (object1 == null && object2 != null) {
+				returnValue = 1;
+			} else if (object1 != null && object2 == null) {
+				returnValue = -1;
+			} else {
+				returnValue = 0;
+			}
+
+			return returnValue;
+		}
+
+		private int compareStrings(String string1, String string2) {
+			return string1.compareTo(string2);
+		}
+
+	}
+
+	public void tSalesforceInput_2Process(
+			final java.util.Map<String, Object> globalMap)
+			throws TalendException {
+		globalMap.put("tSalesforceInput_2_SUBPROCESS_STATE", 0);
+
+		final boolean execStat = this.execStat;
+
+		String iterateId = "";
+
+		String currentComponent = "";
+		java.util.Map<String, Object> resourceMap = new java.util.HashMap<String, Object>();
+
+		try {
+
+			String currentMethodName = new java.lang.Exception()
+					.getStackTrace()[0].getMethodName();
+			boolean resumeIt = currentMethodName.equals(resumeEntryMethodName);
+			if (resumeEntryMethodName == null || resumeIt || globalResumeTicket) {// start
+																					// the
+																					// resume
+				globalResumeTicket = true;
+
+				row14Struct row14 = new row14Struct();
+
+				/**
+				 * [tFileOutputDelimited_8 begin ] start
+				 */
+
+				ok_Hash.put("tFileOutputDelimited_8", false);
+				start_Hash.put("tFileOutputDelimited_8",
+						System.currentTimeMillis());
+
+				currentComponent = "tFileOutputDelimited_8";
+
+				int tos_count_tFileOutputDelimited_8 = 0;
+
+				String fileName_tFileOutputDelimited_8 = "";
+				fileName_tFileOutputDelimited_8 = (new java.io.File(
+						context.filePath + "\\Output\\Dest_AccountExport.csv"))
+						.getAbsolutePath().replace("\\", "/");
+				String fullName_tFileOutputDelimited_8 = null;
+				String extension_tFileOutputDelimited_8 = null;
+				String directory_tFileOutputDelimited_8 = null;
+				if ((fileName_tFileOutputDelimited_8.indexOf("/") != -1)) {
+					if (fileName_tFileOutputDelimited_8.lastIndexOf(".") < fileName_tFileOutputDelimited_8
+							.lastIndexOf("/")) {
+						fullName_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8;
+						extension_tFileOutputDelimited_8 = "";
+					} else {
+						fullName_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
+								.substring(0, fileName_tFileOutputDelimited_8
+										.lastIndexOf("."));
+						extension_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
+								.substring(fileName_tFileOutputDelimited_8
+										.lastIndexOf("."));
+					}
+					directory_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
+							.substring(0, fileName_tFileOutputDelimited_8
+									.lastIndexOf("/"));
+				} else {
+					if (fileName_tFileOutputDelimited_8.lastIndexOf(".") != -1) {
+						fullName_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
+								.substring(0, fileName_tFileOutputDelimited_8
+										.lastIndexOf("."));
+						extension_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
+								.substring(fileName_tFileOutputDelimited_8
+										.lastIndexOf("."));
+					} else {
+						fullName_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8;
+						extension_tFileOutputDelimited_8 = "";
+					}
+					directory_tFileOutputDelimited_8 = "";
+				}
+				boolean isFileGenerated_tFileOutputDelimited_8 = true;
+				java.io.File filetFileOutputDelimited_8 = new java.io.File(
+						fileName_tFileOutputDelimited_8);
+				globalMap.put("tFileOutputDelimited_8_FILE_NAME",
+						fileName_tFileOutputDelimited_8);
+				String[] headColutFileOutputDelimited_8 = new String[3];
+				class CSVBasicSet_tFileOutputDelimited_8 {
+					private char field_Delim;
+					private char row_Delim;
+					private char escape;
+					private char textEnclosure;
+					private boolean useCRLFRecordDelimiter;
+
+					public boolean isUseCRLFRecordDelimiter() {
+						return useCRLFRecordDelimiter;
+					}
+
+					public void setFieldSeparator(String fieldSep)
+							throws IllegalArgumentException {
+						char field_Delim_tFileOutputDelimited_8[] = null;
+
+						// support passing value (property: Field Separator) by
+						// 'context.fs' or 'globalMap.get("fs")'.
+						if (fieldSep.length() > 0) {
+							field_Delim_tFileOutputDelimited_8 = fieldSep
+									.toCharArray();
+						} else {
+							throw new IllegalArgumentException(
+									"Field Separator must be assigned a char.");
+						}
+						this.field_Delim = field_Delim_tFileOutputDelimited_8[0];
+					}
+
+					public char getFieldDelim() {
+						if (this.field_Delim == 0) {
+							setFieldSeparator(",");
+						}
+						return this.field_Delim;
+					}
+
+					public void setRowSeparator(String rowSep) {
+						if ("\r\n".equals(rowSep)) {
+							useCRLFRecordDelimiter = true;
+							return;
+						}
+						char row_DelimtFileOutputDelimited_8[] = null;
+
+						// support passing value (property: Row Separator) by
+						// 'context.rs' or 'globalMap.get("rs")'.
+						if (rowSep.length() > 0) {
+							row_DelimtFileOutputDelimited_8 = rowSep
+									.toCharArray();
+						} else {
+							throw new IllegalArgumentException(
+									"Row Separator must be assigned a char.");
+						}
+						this.row_Delim = row_DelimtFileOutputDelimited_8[0];
+					}
+
+					public char getRowDelim() {
+						if (this.row_Delim == 0) {
+							setRowSeparator("\n");
+						}
+						return this.row_Delim;
+					}
+
+					public void setEscapeAndTextEnclosure(String strEscape,
+							String strTextEnclosure)
+							throws IllegalArgumentException {
+						if (strEscape.length() <= 0) {
+							throw new IllegalArgumentException(
+									"Escape Char must be assigned a char.");
+						}
+
+						if ("".equals(strTextEnclosure))
+							strTextEnclosure = "\0";
+						char textEnclosure_tFileOutputDelimited_8[] = null;
+
+						if (strTextEnclosure.length() > 0) {
+							textEnclosure_tFileOutputDelimited_8 = strTextEnclosure
+									.toCharArray();
+						} else {
+							throw new IllegalArgumentException(
+									"Text Enclosure must be assigned a char.");
+						}
+
+						this.textEnclosure = textEnclosure_tFileOutputDelimited_8[0];
+
+						if (("\\").equals(strEscape)) {
+							this.escape = '\\';
+						} else if (strEscape.equals(strTextEnclosure)) {
+							this.escape = this.textEnclosure;
+						} else {
+							// the default escape mode is double escape
+							this.escape = this.textEnclosure;
+						}
+
+					}
+
+					public char getEscapeChar() {
+						return (char) this.escape;
+					}
+
+					public char getTextEnclosure() {
+						return this.textEnclosure;
+					}
+				}
+
+				int nb_line_tFileOutputDelimited_8 = 0;
+				int splitEvery_tFileOutputDelimited_8 = 1000;
+				int splitedFileNo_tFileOutputDelimited_8 = 0;
+				int currentRow_tFileOutputDelimited_8 = 0;
+
+				CSVBasicSet_tFileOutputDelimited_8 csvSettings_tFileOutputDelimited_8 = new CSVBasicSet_tFileOutputDelimited_8();
+				csvSettings_tFileOutputDelimited_8.setFieldSeparator(",");
+				csvSettings_tFileOutputDelimited_8.setRowSeparator("\n");
+				csvSettings_tFileOutputDelimited_8.setEscapeAndTextEnclosure(
+						"\"", "\"");
+				// create directory only if not exists
+				if (directory_tFileOutputDelimited_8 != null
+						&& directory_tFileOutputDelimited_8.trim().length() != 0) {
+					java.io.File dir_tFileOutputDelimited_8 = new java.io.File(
+							directory_tFileOutputDelimited_8);
+					if (!dir_tFileOutputDelimited_8.exists()) {
+						dir_tFileOutputDelimited_8.mkdirs();
+					}
+				}
+				com.talend.csv.CSVWriter CsvWritertFileOutputDelimited_8 = null;
+
+				java.io.File fileToDelete_tFileOutputDelimited_8 = new java.io.File(
+						fileName_tFileOutputDelimited_8);
+				if (fileToDelete_tFileOutputDelimited_8.exists()) {
+					fileToDelete_tFileOutputDelimited_8.delete();
+				}
+				CsvWritertFileOutputDelimited_8 = new com.talend.csv.CSVWriter(
+						new java.io.BufferedWriter(
+								new java.io.OutputStreamWriter(
+										new java.io.FileOutputStream(
+												fileName_tFileOutputDelimited_8,
+												false), "ISO-8859-15")));
+				CsvWritertFileOutputDelimited_8
+						.setSeparator(csvSettings_tFileOutputDelimited_8
+								.getFieldDelim());
+				if (!csvSettings_tFileOutputDelimited_8
+						.isUseCRLFRecordDelimiter()
+						&& csvSettings_tFileOutputDelimited_8.getRowDelim() != '\r'
+						&& csvSettings_tFileOutputDelimited_8.getRowDelim() != '\n') {
+					CsvWritertFileOutputDelimited_8.setLineEnd(""
+							+ csvSettings_tFileOutputDelimited_8.getRowDelim());
+				}
+				if (filetFileOutputDelimited_8.length() == 0) {
+					headColutFileOutputDelimited_8[0] = "Id";
+					headColutFileOutputDelimited_8[1] = "Name";
+					headColutFileOutputDelimited_8[2] = "ExternalID__c";
+					CsvWritertFileOutputDelimited_8
+							.writeNext(headColutFileOutputDelimited_8);
+					CsvWritertFileOutputDelimited_8.flush();
+				}
+				CsvWritertFileOutputDelimited_8
+						.setEscapeChar(csvSettings_tFileOutputDelimited_8
+								.getEscapeChar());
+				CsvWritertFileOutputDelimited_8
+						.setQuoteChar(csvSettings_tFileOutputDelimited_8
+								.getTextEnclosure());
+				CsvWritertFileOutputDelimited_8
+						.setQuoteStatus(com.talend.csv.CSVWriter.QuoteStatus.FORCE);
+
+				resourceMap.put("CsvWriter_tFileOutputDelimited_8",
+						CsvWritertFileOutputDelimited_8);
+				resourceMap.put("nb_line_tFileOutputDelimited_8",
+						nb_line_tFileOutputDelimited_8);
+
+				/**
+				 * [tFileOutputDelimited_8 begin ] stop
+				 */
+
+				/**
+				 * [tSalesforceInput_2 begin ] start
+				 */
+
+				ok_Hash.put("tSalesforceInput_2", false);
+				start_Hash
+						.put("tSalesforceInput_2", System.currentTimeMillis());
+
+				currentComponent = "tSalesforceInput_2";
+
+				int tos_count_tSalesforceInput_2 = 0;
+
+				int nb_line_tSalesforceInput_2 = 0;
+				int limit_tSalesforceInput_2 = -1;
+				System.setProperty("org.apache.commons.logging.Log",
+						"org.apache.commons.logging.impl.NoOpLog");
+				org.talend.salesforceBulk.SforceBulkConnection sforceConn_tSalesforceInput_2 = null;
+
+				if (globalMap.get("conn_tSalesforceConnection_2") == null) {
+					throw new RuntimeException(
+							"Get null connection from tSalesforceConnection_2");
+				}
+				sforceConn_tSalesforceInput_2 = (org.talend.salesforceBulk.SforceBulkConnection) globalMap
+						.get("conn_tSalesforceConnection_2");
+
+				org.talend.salesforceBulk.SalesforceBulkAPI sforceBulk_tSalesforceInput_2 = new org.talend.salesforceBulk.SalesforceBulkAPI(
+						sforceConn_tSalesforceInput_2);
+
+				StringBuilder sql_tSalesforceInput_2 = new StringBuilder(
+						"select ");
+				sql_tSalesforceInput_2.append("Id,Name,ExternalID__c");
+
+				sql_tSalesforceInput_2.append(" from ");
+				sql_tSalesforceInput_2.append("Account");
+
+				String condition_tSalesforceInput_2 = "";
+				if (condition_tSalesforceInput_2 != null
+						&& !("".equals(condition_tSalesforceInput_2))) {
+					sql_tSalesforceInput_2.append(" where ").append(
+							condition_tSalesforceInput_2);
+				}
+
+				sforceBulk_tSalesforceInput_2.doBulkQuery("Account",
+						sql_tSalesforceInput_2.toString(), 30);
+				String[] queryResultIDs_tSalesforceInput_2 = sforceBulk_tSalesforceInput_2
+						.getQueryResultIDs();
+				for (String queryResultId_tSalesforceInput_2 : queryResultIDs_tSalesforceInput_2) {
+					org.talend.salesforceBulk.ResultSet resultSet_tSalesforceInput_2 = sforceBulk_tSalesforceInput_2
+							.getQueryResultSet(queryResultId_tSalesforceInput_2);
+					java.util.Map<String, String> resultMessage_tSalesforceInput_2 = null;
+					while ((resultMessage_tSalesforceInput_2 = resultSet_tSalesforceInput_2
+							.next()) != null) {
+						nb_line_tSalesforceInput_2++;
+						String value_tSalesforceInput_2 = null;
+
+						value_tSalesforceInput_2 = resultMessage_tSalesforceInput_2
+								.get("Id");
+						if (value_tSalesforceInput_2 != null
+								&& !"".equals(value_tSalesforceInput_2)) {
+
+							row14.Id = value_tSalesforceInput_2;
+
+						} else {
+							row14.Id = null;
+						}
+
+						value_tSalesforceInput_2 = resultMessage_tSalesforceInput_2
+								.get("Name");
+						if (value_tSalesforceInput_2 != null
+								&& !"".equals(value_tSalesforceInput_2)) {
+
+							row14.Name = value_tSalesforceInput_2;
+
+						} else {
+							row14.Name = null;
+						}
+
+						value_tSalesforceInput_2 = resultMessage_tSalesforceInput_2
+								.get("ExternalID__c");
+						if (value_tSalesforceInput_2 != null
+								&& !"".equals(value_tSalesforceInput_2)) {
+
+							row14.ExternalID__c = value_tSalesforceInput_2;
+
+						} else {
+							row14.ExternalID__c = null;
+						}
+
+						/**
+						 * [tSalesforceInput_2 begin ] stop
+						 */
+
+						/**
+						 * [tSalesforceInput_2 main ] start
+						 */
+
+						currentComponent = "tSalesforceInput_2";
+
+						tos_count_tSalesforceInput_2++;
+
+						/**
+						 * [tSalesforceInput_2 main ] stop
+						 */
+
+						/**
+						 * [tFileOutputDelimited_8 main ] start
+						 */
+
+						currentComponent = "tFileOutputDelimited_8";
+
+						String[] rowtFileOutputDelimited_8 = new String[3];
+						rowtFileOutputDelimited_8[0] = row14.Id == null ? null
+								: row14.Id;
+						rowtFileOutputDelimited_8[1] = row14.Name == null ? null
+								: row14.Name;
+						rowtFileOutputDelimited_8[2] = row14.ExternalID__c == null ? null
+								: row14.ExternalID__c;
+						nb_line_tFileOutputDelimited_8++;
+						resourceMap.put("nb_line_tFileOutputDelimited_8",
+								nb_line_tFileOutputDelimited_8);
+						CsvWritertFileOutputDelimited_8
+								.writeNext(rowtFileOutputDelimited_8);
+
+						tos_count_tFileOutputDelimited_8++;
+
+						/**
+						 * [tFileOutputDelimited_8 main ] stop
+						 */
+
+						/**
+						 * [tSalesforceInput_2 end ] start
+						 */
+
+						currentComponent = "tSalesforceInput_2";
+
+					}
+				}
+
+				globalMap.put("tSalesforceInput_2_NB_LINE",
+						nb_line_tSalesforceInput_2);
+
+				ok_Hash.put("tSalesforceInput_2", true);
+				end_Hash.put("tSalesforceInput_2", System.currentTimeMillis());
+
+				/**
+				 * [tSalesforceInput_2 end ] stop
+				 */
+
+				/**
+				 * [tFileOutputDelimited_8 end ] start
+				 */
+
+				currentComponent = "tFileOutputDelimited_8";
+
+				if (CsvWritertFileOutputDelimited_8 != null) {
+					CsvWritertFileOutputDelimited_8.close();
+				}
+
+				globalMap.put("tFileOutputDelimited_8_NB_LINE",
+						nb_line_tFileOutputDelimited_8);
+
+				resourceMap.put("finish_tFileOutputDelimited_8", true);
+
+				ok_Hash.put("tFileOutputDelimited_8", true);
+				end_Hash.put("tFileOutputDelimited_8",
+						System.currentTimeMillis());
+
+				/**
+				 * [tFileOutputDelimited_8 end ] stop
+				 */
+
+			}// end the resume
+
+		} catch (java.lang.Exception e) {
+
+			TalendException te = new TalendException(e, currentComponent,
+					globalMap);
+
+			throw te;
+		} catch (java.lang.Error error) {
+
+			throw error;
+		} finally {
+
+			try {
+
+				/**
+				 * [tSalesforceInput_2 finally ] start
+				 */
+
+				currentComponent = "tSalesforceInput_2";
+
+				/**
+				 * [tSalesforceInput_2 finally ] stop
+				 */
+
+				/**
+				 * [tFileOutputDelimited_8 finally ] start
+				 */
+
+				currentComponent = "tFileOutputDelimited_8";
+
+				if (resourceMap.get("finish_tFileOutputDelimited_8") == null) {
+
+					com.talend.csv.CSVWriter CsvWritertFileOutputDelimited_8 = (com.talend.csv.CSVWriter) resourceMap
+							.get("CsvWriter_tFileOutputDelimited_8");
+
+					if (CsvWritertFileOutputDelimited_8 != null) {
+						CsvWritertFileOutputDelimited_8.close();
+					}
+
+				}
+
+				/**
+				 * [tFileOutputDelimited_8 finally ] stop
+				 */
+
+			} catch (java.lang.Exception e) {
+				// ignore
+			} catch (java.lang.Error error) {
+				// ignore
+			}
+			resourceMap = null;
+		}
+
+		globalMap.put("tSalesforceInput_2_SUBPROCESS_STATE", 1);
 	}
 
 	public static class row7Struct implements
@@ -11364,692 +12041,6 @@ public class Migrate_Contacts implements TalendJob {
 		globalMap.put("tJava_4_SUBPROCESS_STATE", 1);
 	}
 
-	public static class row14Struct implements
-			routines.system.IPersistableRow<row14Struct> {
-		final static byte[] commonByteArrayLock_DF2019_Migrate_Contacts = new byte[0];
-		static byte[] commonByteArray_DF2019_Migrate_Contacts = new byte[0];
-		protected static final int DEFAULT_HASHCODE = 1;
-		protected static final int PRIME = 31;
-		protected int hashCode = DEFAULT_HASHCODE;
-		public boolean hashCodeDirty = true;
-
-		public String loopKey;
-
-		public String Id;
-
-		public String getId() {
-			return this.Id;
-		}
-
-		public String Name;
-
-		public String getName() {
-			return this.Name;
-		}
-
-		public String ExternalID__c;
-
-		public String getExternalID__c() {
-			return this.ExternalID__c;
-		}
-
-		@Override
-		public int hashCode() {
-			if (this.hashCodeDirty) {
-				final int prime = PRIME;
-				int result = DEFAULT_HASHCODE;
-
-				result = prime * result
-						+ ((this.Id == null) ? 0 : this.Id.hashCode());
-
-				this.hashCode = result;
-				this.hashCodeDirty = false;
-			}
-			return this.hashCode;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			final row14Struct other = (row14Struct) obj;
-
-			if (this.Id == null) {
-				if (other.Id != null)
-					return false;
-
-			} else if (!this.Id.equals(other.Id))
-
-				return false;
-
-			return true;
-		}
-
-		public void copyDataTo(row14Struct other) {
-
-			other.Id = this.Id;
-			other.Name = this.Name;
-			other.ExternalID__c = this.ExternalID__c;
-
-		}
-
-		public void copyKeysDataTo(row14Struct other) {
-
-			other.Id = this.Id;
-
-		}
-
-		private String readString(ObjectInputStream dis) throws IOException {
-			String strReturn = null;
-			int length = 0;
-			length = dis.readInt();
-			if (length == -1) {
-				strReturn = null;
-			} else {
-				if (length > commonByteArray_DF2019_Migrate_Contacts.length) {
-					if (length < 1024
-							&& commonByteArray_DF2019_Migrate_Contacts.length == 0) {
-						commonByteArray_DF2019_Migrate_Contacts = new byte[1024];
-					} else {
-						commonByteArray_DF2019_Migrate_Contacts = new byte[2 * length];
-					}
-				}
-				dis.readFully(commonByteArray_DF2019_Migrate_Contacts, 0,
-						length);
-				strReturn = new String(commonByteArray_DF2019_Migrate_Contacts,
-						0, length, utf8Charset);
-			}
-			return strReturn;
-		}
-
-		private void writeString(String str, ObjectOutputStream dos)
-				throws IOException {
-			if (str == null) {
-				dos.writeInt(-1);
-			} else {
-				byte[] byteArray = str.getBytes(utf8Charset);
-				dos.writeInt(byteArray.length);
-				dos.write(byteArray);
-			}
-		}
-
-		public void readData(ObjectInputStream dis) {
-
-			synchronized (commonByteArrayLock_DF2019_Migrate_Contacts) {
-
-				try {
-
-					int length = 0;
-
-					this.Id = readString(dis);
-
-					this.Name = readString(dis);
-
-					this.ExternalID__c = readString(dis);
-
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-
-				}
-
-			}
-
-		}
-
-		public void writeData(ObjectOutputStream dos) {
-			try {
-
-				// String
-
-				writeString(this.Id, dos);
-
-				// String
-
-				writeString(this.Name, dos);
-
-				// String
-
-				writeString(this.ExternalID__c, dos);
-
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-
-		}
-
-		public String toString() {
-
-			StringBuilder sb = new StringBuilder();
-			sb.append(super.toString());
-			sb.append("[");
-			sb.append("Id=" + Id);
-			sb.append(",Name=" + Name);
-			sb.append(",ExternalID__c=" + ExternalID__c);
-			sb.append("]");
-
-			return sb.toString();
-		}
-
-		/**
-		 * Compare keys
-		 */
-		public int compareTo(row14Struct other) {
-
-			int returnValue = -1;
-
-			returnValue = checkNullsAndCompare(this.Id, other.Id);
-			if (returnValue != 0) {
-				return returnValue;
-			}
-
-			return returnValue;
-		}
-
-		private int checkNullsAndCompare(Object object1, Object object2) {
-			int returnValue = 0;
-			if (object1 instanceof Comparable && object2 instanceof Comparable) {
-				returnValue = ((Comparable) object1).compareTo(object2);
-			} else if (object1 != null && object2 != null) {
-				returnValue = compareStrings(object1.toString(),
-						object2.toString());
-			} else if (object1 == null && object2 != null) {
-				returnValue = 1;
-			} else if (object1 != null && object2 == null) {
-				returnValue = -1;
-			} else {
-				returnValue = 0;
-			}
-
-			return returnValue;
-		}
-
-		private int compareStrings(String string1, String string2) {
-			return string1.compareTo(string2);
-		}
-
-	}
-
-	public void tSalesforceInput_2Process(
-			final java.util.Map<String, Object> globalMap)
-			throws TalendException {
-		globalMap.put("tSalesforceInput_2_SUBPROCESS_STATE", 0);
-
-		final boolean execStat = this.execStat;
-
-		String iterateId = "";
-
-		String currentComponent = "";
-		java.util.Map<String, Object> resourceMap = new java.util.HashMap<String, Object>();
-
-		try {
-
-			String currentMethodName = new java.lang.Exception()
-					.getStackTrace()[0].getMethodName();
-			boolean resumeIt = currentMethodName.equals(resumeEntryMethodName);
-			if (resumeEntryMethodName == null || resumeIt || globalResumeTicket) {// start
-																					// the
-																					// resume
-				globalResumeTicket = true;
-
-				row14Struct row14 = new row14Struct();
-
-				/**
-				 * [tFileOutputDelimited_8 begin ] start
-				 */
-
-				ok_Hash.put("tFileOutputDelimited_8", false);
-				start_Hash.put("tFileOutputDelimited_8",
-						System.currentTimeMillis());
-
-				currentComponent = "tFileOutputDelimited_8";
-
-				int tos_count_tFileOutputDelimited_8 = 0;
-
-				String fileName_tFileOutputDelimited_8 = "";
-				fileName_tFileOutputDelimited_8 = (new java.io.File(
-						context.filePath + "\\Output\\Dest_AccountExport.csv"))
-						.getAbsolutePath().replace("\\", "/");
-				String fullName_tFileOutputDelimited_8 = null;
-				String extension_tFileOutputDelimited_8 = null;
-				String directory_tFileOutputDelimited_8 = null;
-				if ((fileName_tFileOutputDelimited_8.indexOf("/") != -1)) {
-					if (fileName_tFileOutputDelimited_8.lastIndexOf(".") < fileName_tFileOutputDelimited_8
-							.lastIndexOf("/")) {
-						fullName_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8;
-						extension_tFileOutputDelimited_8 = "";
-					} else {
-						fullName_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
-								.substring(0, fileName_tFileOutputDelimited_8
-										.lastIndexOf("."));
-						extension_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
-								.substring(fileName_tFileOutputDelimited_8
-										.lastIndexOf("."));
-					}
-					directory_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
-							.substring(0, fileName_tFileOutputDelimited_8
-									.lastIndexOf("/"));
-				} else {
-					if (fileName_tFileOutputDelimited_8.lastIndexOf(".") != -1) {
-						fullName_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
-								.substring(0, fileName_tFileOutputDelimited_8
-										.lastIndexOf("."));
-						extension_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8
-								.substring(fileName_tFileOutputDelimited_8
-										.lastIndexOf("."));
-					} else {
-						fullName_tFileOutputDelimited_8 = fileName_tFileOutputDelimited_8;
-						extension_tFileOutputDelimited_8 = "";
-					}
-					directory_tFileOutputDelimited_8 = "";
-				}
-				boolean isFileGenerated_tFileOutputDelimited_8 = true;
-				java.io.File filetFileOutputDelimited_8 = new java.io.File(
-						fileName_tFileOutputDelimited_8);
-				globalMap.put("tFileOutputDelimited_8_FILE_NAME",
-						fileName_tFileOutputDelimited_8);
-				String[] headColutFileOutputDelimited_8 = new String[3];
-				class CSVBasicSet_tFileOutputDelimited_8 {
-					private char field_Delim;
-					private char row_Delim;
-					private char escape;
-					private char textEnclosure;
-					private boolean useCRLFRecordDelimiter;
-
-					public boolean isUseCRLFRecordDelimiter() {
-						return useCRLFRecordDelimiter;
-					}
-
-					public void setFieldSeparator(String fieldSep)
-							throws IllegalArgumentException {
-						char field_Delim_tFileOutputDelimited_8[] = null;
-
-						// support passing value (property: Field Separator) by
-						// 'context.fs' or 'globalMap.get("fs")'.
-						if (fieldSep.length() > 0) {
-							field_Delim_tFileOutputDelimited_8 = fieldSep
-									.toCharArray();
-						} else {
-							throw new IllegalArgumentException(
-									"Field Separator must be assigned a char.");
-						}
-						this.field_Delim = field_Delim_tFileOutputDelimited_8[0];
-					}
-
-					public char getFieldDelim() {
-						if (this.field_Delim == 0) {
-							setFieldSeparator(",");
-						}
-						return this.field_Delim;
-					}
-
-					public void setRowSeparator(String rowSep) {
-						if ("\r\n".equals(rowSep)) {
-							useCRLFRecordDelimiter = true;
-							return;
-						}
-						char row_DelimtFileOutputDelimited_8[] = null;
-
-						// support passing value (property: Row Separator) by
-						// 'context.rs' or 'globalMap.get("rs")'.
-						if (rowSep.length() > 0) {
-							row_DelimtFileOutputDelimited_8 = rowSep
-									.toCharArray();
-						} else {
-							throw new IllegalArgumentException(
-									"Row Separator must be assigned a char.");
-						}
-						this.row_Delim = row_DelimtFileOutputDelimited_8[0];
-					}
-
-					public char getRowDelim() {
-						if (this.row_Delim == 0) {
-							setRowSeparator("\n");
-						}
-						return this.row_Delim;
-					}
-
-					public void setEscapeAndTextEnclosure(String strEscape,
-							String strTextEnclosure)
-							throws IllegalArgumentException {
-						if (strEscape.length() <= 0) {
-							throw new IllegalArgumentException(
-									"Escape Char must be assigned a char.");
-						}
-
-						if ("".equals(strTextEnclosure))
-							strTextEnclosure = "\0";
-						char textEnclosure_tFileOutputDelimited_8[] = null;
-
-						if (strTextEnclosure.length() > 0) {
-							textEnclosure_tFileOutputDelimited_8 = strTextEnclosure
-									.toCharArray();
-						} else {
-							throw new IllegalArgumentException(
-									"Text Enclosure must be assigned a char.");
-						}
-
-						this.textEnclosure = textEnclosure_tFileOutputDelimited_8[0];
-
-						if (("\\").equals(strEscape)) {
-							this.escape = '\\';
-						} else if (strEscape.equals(strTextEnclosure)) {
-							this.escape = this.textEnclosure;
-						} else {
-							// the default escape mode is double escape
-							this.escape = this.textEnclosure;
-						}
-
-					}
-
-					public char getEscapeChar() {
-						return (char) this.escape;
-					}
-
-					public char getTextEnclosure() {
-						return this.textEnclosure;
-					}
-				}
-
-				int nb_line_tFileOutputDelimited_8 = 0;
-				int splitEvery_tFileOutputDelimited_8 = 1000;
-				int splitedFileNo_tFileOutputDelimited_8 = 0;
-				int currentRow_tFileOutputDelimited_8 = 0;
-
-				CSVBasicSet_tFileOutputDelimited_8 csvSettings_tFileOutputDelimited_8 = new CSVBasicSet_tFileOutputDelimited_8();
-				csvSettings_tFileOutputDelimited_8.setFieldSeparator(",");
-				csvSettings_tFileOutputDelimited_8.setRowSeparator("\n");
-				csvSettings_tFileOutputDelimited_8.setEscapeAndTextEnclosure(
-						"\"", "\"");
-				// create directory only if not exists
-				if (directory_tFileOutputDelimited_8 != null
-						&& directory_tFileOutputDelimited_8.trim().length() != 0) {
-					java.io.File dir_tFileOutputDelimited_8 = new java.io.File(
-							directory_tFileOutputDelimited_8);
-					if (!dir_tFileOutputDelimited_8.exists()) {
-						dir_tFileOutputDelimited_8.mkdirs();
-					}
-				}
-				com.talend.csv.CSVWriter CsvWritertFileOutputDelimited_8 = null;
-
-				java.io.File fileToDelete_tFileOutputDelimited_8 = new java.io.File(
-						fileName_tFileOutputDelimited_8);
-				if (fileToDelete_tFileOutputDelimited_8.exists()) {
-					fileToDelete_tFileOutputDelimited_8.delete();
-				}
-				CsvWritertFileOutputDelimited_8 = new com.talend.csv.CSVWriter(
-						new java.io.BufferedWriter(
-								new java.io.OutputStreamWriter(
-										new java.io.FileOutputStream(
-												fileName_tFileOutputDelimited_8,
-												false), "ISO-8859-15")));
-				CsvWritertFileOutputDelimited_8
-						.setSeparator(csvSettings_tFileOutputDelimited_8
-								.getFieldDelim());
-				if (!csvSettings_tFileOutputDelimited_8
-						.isUseCRLFRecordDelimiter()
-						&& csvSettings_tFileOutputDelimited_8.getRowDelim() != '\r'
-						&& csvSettings_tFileOutputDelimited_8.getRowDelim() != '\n') {
-					CsvWritertFileOutputDelimited_8.setLineEnd(""
-							+ csvSettings_tFileOutputDelimited_8.getRowDelim());
-				}
-				if (filetFileOutputDelimited_8.length() == 0) {
-					headColutFileOutputDelimited_8[0] = "Id";
-					headColutFileOutputDelimited_8[1] = "Name";
-					headColutFileOutputDelimited_8[2] = "ExternalID__c";
-					CsvWritertFileOutputDelimited_8
-							.writeNext(headColutFileOutputDelimited_8);
-					CsvWritertFileOutputDelimited_8.flush();
-				}
-				CsvWritertFileOutputDelimited_8
-						.setEscapeChar(csvSettings_tFileOutputDelimited_8
-								.getEscapeChar());
-				CsvWritertFileOutputDelimited_8
-						.setQuoteChar(csvSettings_tFileOutputDelimited_8
-								.getTextEnclosure());
-				CsvWritertFileOutputDelimited_8
-						.setQuoteStatus(com.talend.csv.CSVWriter.QuoteStatus.FORCE);
-
-				resourceMap.put("CsvWriter_tFileOutputDelimited_8",
-						CsvWritertFileOutputDelimited_8);
-				resourceMap.put("nb_line_tFileOutputDelimited_8",
-						nb_line_tFileOutputDelimited_8);
-
-				/**
-				 * [tFileOutputDelimited_8 begin ] stop
-				 */
-
-				/**
-				 * [tSalesforceInput_2 begin ] start
-				 */
-
-				ok_Hash.put("tSalesforceInput_2", false);
-				start_Hash
-						.put("tSalesforceInput_2", System.currentTimeMillis());
-
-				currentComponent = "tSalesforceInput_2";
-
-				int tos_count_tSalesforceInput_2 = 0;
-
-				int nb_line_tSalesforceInput_2 = 0;
-				int limit_tSalesforceInput_2 = -1;
-				System.setProperty("org.apache.commons.logging.Log",
-						"org.apache.commons.logging.impl.NoOpLog");
-				org.talend.salesforceBulk.SforceBulkConnection sforceConn_tSalesforceInput_2 = null;
-
-				if (globalMap.get("conn_tSalesforceConnection_2") == null) {
-					throw new RuntimeException(
-							"Get null connection from tSalesforceConnection_2");
-				}
-				sforceConn_tSalesforceInput_2 = (org.talend.salesforceBulk.SforceBulkConnection) globalMap
-						.get("conn_tSalesforceConnection_2");
-
-				org.talend.salesforceBulk.SalesforceBulkAPI sforceBulk_tSalesforceInput_2 = new org.talend.salesforceBulk.SalesforceBulkAPI(
-						sforceConn_tSalesforceInput_2);
-
-				StringBuilder sql_tSalesforceInput_2 = new StringBuilder(
-						"select ");
-				sql_tSalesforceInput_2.append("Id,Name,ExternalID__c");
-
-				sql_tSalesforceInput_2.append(" from ");
-				sql_tSalesforceInput_2.append("Account");
-
-				String condition_tSalesforceInput_2 = "";
-				if (condition_tSalesforceInput_2 != null
-						&& !("".equals(condition_tSalesforceInput_2))) {
-					sql_tSalesforceInput_2.append(" where ").append(
-							condition_tSalesforceInput_2);
-				}
-
-				sforceBulk_tSalesforceInput_2.doBulkQuery("Account",
-						sql_tSalesforceInput_2.toString(), 30);
-				String[] queryResultIDs_tSalesforceInput_2 = sforceBulk_tSalesforceInput_2
-						.getQueryResultIDs();
-				for (String queryResultId_tSalesforceInput_2 : queryResultIDs_tSalesforceInput_2) {
-					org.talend.salesforceBulk.ResultSet resultSet_tSalesforceInput_2 = sforceBulk_tSalesforceInput_2
-							.getQueryResultSet(queryResultId_tSalesforceInput_2);
-					java.util.Map<String, String> resultMessage_tSalesforceInput_2 = null;
-					while ((resultMessage_tSalesforceInput_2 = resultSet_tSalesforceInput_2
-							.next()) != null) {
-						nb_line_tSalesforceInput_2++;
-						String value_tSalesforceInput_2 = null;
-
-						value_tSalesforceInput_2 = resultMessage_tSalesforceInput_2
-								.get("Id");
-						if (value_tSalesforceInput_2 != null
-								&& !"".equals(value_tSalesforceInput_2)) {
-
-							row14.Id = value_tSalesforceInput_2;
-
-						} else {
-							row14.Id = null;
-						}
-
-						value_tSalesforceInput_2 = resultMessage_tSalesforceInput_2
-								.get("Name");
-						if (value_tSalesforceInput_2 != null
-								&& !"".equals(value_tSalesforceInput_2)) {
-
-							row14.Name = value_tSalesforceInput_2;
-
-						} else {
-							row14.Name = null;
-						}
-
-						value_tSalesforceInput_2 = resultMessage_tSalesforceInput_2
-								.get("ExternalID__c");
-						if (value_tSalesforceInput_2 != null
-								&& !"".equals(value_tSalesforceInput_2)) {
-
-							row14.ExternalID__c = value_tSalesforceInput_2;
-
-						} else {
-							row14.ExternalID__c = null;
-						}
-
-						/**
-						 * [tSalesforceInput_2 begin ] stop
-						 */
-
-						/**
-						 * [tSalesforceInput_2 main ] start
-						 */
-
-						currentComponent = "tSalesforceInput_2";
-
-						tos_count_tSalesforceInput_2++;
-
-						/**
-						 * [tSalesforceInput_2 main ] stop
-						 */
-
-						/**
-						 * [tFileOutputDelimited_8 main ] start
-						 */
-
-						currentComponent = "tFileOutputDelimited_8";
-
-						String[] rowtFileOutputDelimited_8 = new String[3];
-						rowtFileOutputDelimited_8[0] = row14.Id == null ? null
-								: row14.Id;
-						rowtFileOutputDelimited_8[1] = row14.Name == null ? null
-								: row14.Name;
-						rowtFileOutputDelimited_8[2] = row14.ExternalID__c == null ? null
-								: row14.ExternalID__c;
-						nb_line_tFileOutputDelimited_8++;
-						resourceMap.put("nb_line_tFileOutputDelimited_8",
-								nb_line_tFileOutputDelimited_8);
-						CsvWritertFileOutputDelimited_8
-								.writeNext(rowtFileOutputDelimited_8);
-
-						tos_count_tFileOutputDelimited_8++;
-
-						/**
-						 * [tFileOutputDelimited_8 main ] stop
-						 */
-
-						/**
-						 * [tSalesforceInput_2 end ] start
-						 */
-
-						currentComponent = "tSalesforceInput_2";
-
-					}
-				}
-
-				globalMap.put("tSalesforceInput_2_NB_LINE",
-						nb_line_tSalesforceInput_2);
-
-				ok_Hash.put("tSalesforceInput_2", true);
-				end_Hash.put("tSalesforceInput_2", System.currentTimeMillis());
-
-				/**
-				 * [tSalesforceInput_2 end ] stop
-				 */
-
-				/**
-				 * [tFileOutputDelimited_8 end ] start
-				 */
-
-				currentComponent = "tFileOutputDelimited_8";
-
-				if (CsvWritertFileOutputDelimited_8 != null) {
-					CsvWritertFileOutputDelimited_8.close();
-				}
-
-				globalMap.put("tFileOutputDelimited_8_NB_LINE",
-						nb_line_tFileOutputDelimited_8);
-
-				resourceMap.put("finish_tFileOutputDelimited_8", true);
-
-				ok_Hash.put("tFileOutputDelimited_8", true);
-				end_Hash.put("tFileOutputDelimited_8",
-						System.currentTimeMillis());
-
-				/**
-				 * [tFileOutputDelimited_8 end ] stop
-				 */
-
-			}// end the resume
-
-		} catch (java.lang.Exception e) {
-
-			TalendException te = new TalendException(e, currentComponent,
-					globalMap);
-
-			throw te;
-		} catch (java.lang.Error error) {
-
-			throw error;
-		} finally {
-
-			try {
-
-				/**
-				 * [tSalesforceInput_2 finally ] start
-				 */
-
-				currentComponent = "tSalesforceInput_2";
-
-				/**
-				 * [tSalesforceInput_2 finally ] stop
-				 */
-
-				/**
-				 * [tFileOutputDelimited_8 finally ] start
-				 */
-
-				currentComponent = "tFileOutputDelimited_8";
-
-				if (resourceMap.get("finish_tFileOutputDelimited_8") == null) {
-
-					com.talend.csv.CSVWriter CsvWritertFileOutputDelimited_8 = (com.talend.csv.CSVWriter) resourceMap
-							.get("CsvWriter_tFileOutputDelimited_8");
-
-					if (CsvWritertFileOutputDelimited_8 != null) {
-						CsvWritertFileOutputDelimited_8.close();
-					}
-
-				}
-
-				/**
-				 * [tFileOutputDelimited_8 finally ] stop
-				 */
-
-			} catch (java.lang.Exception e) {
-				// ignore
-			} catch (java.lang.Error error) {
-				// ignore
-			}
-			resourceMap = null;
-		}
-
-		globalMap.put("tSalesforceInput_2_SUBPROCESS_STATE", 1);
-	}
-
 	public static class row3Struct implements
 			routines.system.IPersistableComparableLookupRow<row3Struct> {
 		final static byte[] commonByteArrayLock_DF2019_Migrate_Contacts = new byte[0];
@@ -14571,6 +14562,19 @@ public class Migrate_Contacts implements TalendJob {
 
 		this.globalResumeTicket = false;// to run others jobs
 
+		try {
+			errorCode = null;
+			tFileInputDelimited_1Process(globalMap);
+			if (!"failure".equals(status)) {
+				status = "end";
+			}
+		} catch (TalendException e_tFileInputDelimited_1) {
+			globalMap.put("tFileInputDelimited_1_SUBPROCESS_STATE", -1);
+
+			e_tFileInputDelimited_1.printStackTrace();
+
+		}
+
 		this.globalResumeTicket = true;// to run tPostJob
 
 		end = System.currentTimeMillis();
@@ -14711,6 +14715,6 @@ public class Migrate_Contacts implements TalendJob {
 	ResumeUtil resumeUtil = null;
 }
 /************************************************************************************************
- * 426689 characters generated by Talend Open Studio for Data Integration on the
- * November 13, 2019 10:56:14 AM PST
+ * 426636 characters generated by Talend Open Studio for Data Integration on the
+ * November 13, 2019 11:19:41 AM PST
  ************************************************************************************************/
