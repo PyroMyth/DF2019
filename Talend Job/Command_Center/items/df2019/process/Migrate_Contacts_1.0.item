@@ -20,10 +20,10 @@
     <contextParameter comment="The password for the destination org" name="destPass" prompt="destPass?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_String" value=""/>
     <contextParameter comment="The base URL for the destination org (login.salesforce.com for production, test.salesforce.com for sandbox)" name="destURL" prompt="destURL?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_String" value=""/>
     <contextParameter comment="The username for the destination org" name="destUser" prompt="destUser?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_String" value=""/>
-    <contextParameter comment="Boolean indicating whether the job should perform DML, true to perform DML, false to skip DML" name="doDML" prompt="doDML?" promptNeeded="true" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_Boolean" value="false"/>
+    <contextParameter comment="Boolean indicating whether the job should perform DML, true to perform DML, false to skip DML" name="doDML" prompt="doDML?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_Boolean" value="true"/>
     <contextParameter comment="Boolean indicating whether the job should export common records (i.e. Users) from the destination org" name="exportRecordsFromDest" prompt="exportRecordsFromDest?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_Boolean" value="true"/>
     <contextParameter comment="Boolean indicating whether the job should export common records (i.e. Users) from the source org" name="exportRecordsFromSource" prompt="exportRecordsFromSource?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_Boolean" value="true"/>
-    <contextParameter comment="The base filepath to the expected migration directory structure" name="filePath" prompt="filePath?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_String" value="&quot;C:/Development/DF2019/Sandbox/&quot;"/>
+    <contextParameter comment="The base filepath to the expected migration directory structure" name="filePath" prompt="filePath?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_String" value="&quot;C:/development/DF2019/DF2019/Sandbox/&quot;"/>
     <contextParameter comment="The password for the source org" name="sourcePass" prompt="sourcePass?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_String" value=""/>
     <contextParameter comment="The base URL for the source org (login.salesforce.com for production, test.salesforce.com for sandbox)" name="sourceURL" prompt="sourceURL?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_String" value=""/>
     <contextParameter comment="The username for the source org" name="sourceUser" prompt="sourceUser?" promptNeeded="false" repositoryContextId="_6atLMAT0Eeq39ZtsvoeH8A" type="id_String" value=""/>
@@ -122,13 +122,6 @@
     <elementParameter field="TEXT" name="FOOTER_LIBRARY" value="" show="false"/>
     <elementParameter field="TEXT" name="FOOTER_CODE" value="" show="false"/>
     <elementParameter field="TEXT" name="FOOTER_IMPORT" value="" show="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
-    <elementParameter field="CHECK" name="STATS_DEFAULT_PROJECTSETTING" value="true"/>
-    <elementParameter field="PROPERTY_TYPE" name="PROPERTY_TYPE" value=""/>
-    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:PROPERTY_TYPE" value="BUILT_IN"/>
-    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:REPOSITORY_PROPERTY_TYPE" value=""/>
-    <elementParameter field="CHECK" name="IMPLICT_DEFAULT_PROJECTSETTING" value="true"/>
-    <elementParameter field="PROPERTY_TYPE" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value=""/>
     <routinesParameter id="_5nG18ATyEeqWdqVudN7a1w" name="DataOperation"/>
     <routinesParameter id="_5n6HMATyEeqWdqVudN7a1w" name="Mathematical"/>
     <routinesParameter id="_5oG7gATyEeqWdqVudN7a1w" name="Numeric"/>
@@ -348,7 +341,7 @@
     <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
     <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="SPLITRECORD" value="false" show="false"/>
     <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
     <elementParameter field="TABLE" name="DECODE_COLS" show="false">
@@ -717,11 +710,7 @@
     <elementParameter field="TABLE" name="TRIMSELECT" show="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="Id"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="Username"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="LastName"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="FirstName"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Name"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="ExternalID__c"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -735,11 +724,7 @@
     <elementParameter field="TABLE" name="DECODE_COLS" show="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="Id"/>
       <elementValue elementRef="DECODE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="Username"/>
-      <elementValue elementRef="DECODE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="LastName"/>
-      <elementValue elementRef="DECODE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="FirstName"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Name"/>
       <elementValue elementRef="DECODE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="ExternalID__c"/>
       <elementValue elementRef="DECODE" value="false"/>
@@ -750,17 +735,13 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileInputDelimited_5">
       <column key="true" length="18" name="Id" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="80" name="Username" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="80" name="LastName" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="40" name="FirstName" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="ExternalID__c" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="Name" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="18" name="ExternalID__c" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="18" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column key="true" length="18" name="Id" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="80" name="Username" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="80" name="LastName" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="40" name="FirstName" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="ExternalID__c" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="Name" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="18" name="ExternalID__c" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="18" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -810,7 +791,7 @@
     <elementParameter field="TEXT" name="FLUSHONROW_NUM" value="1" show="false"/>
     <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="90" show="false"/>
     <elementParameter field="TEXT" name="LABEL" value="Dest_ContactsToUpsert.csv"/>
@@ -981,7 +962,7 @@
     <elementParameter field="TEXT" name="FLUSHONROW_NUM" value="1" show="false"/>
     <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="90" show="false"/>
     <elementParameter field="TEXT" name="LABEL" value="Dest_Contacts_Fail.csv"/>
@@ -1053,7 +1034,7 @@
     <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
     <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="SPLITRECORD" value="false" show="false"/>
     <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
     <elementParameter field="TABLE" name="DECODE_COLS" show="false">
@@ -1178,7 +1159,7 @@
     <elementParameter field="TEXT" name="FLUSHONROW_NUM" value="1" show="false"/>
     <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="90" show="false"/>
     <elementParameter field="TEXT" name="LABEL" value="Dest_Contacts_Retry.csv"/>
@@ -1572,6 +1553,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row16" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="row15" lineStyle="8" metaname="tFileInputDelimited_5" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_5" target="tJoin_3">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Name"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row15" show="false"/>
   </connection>

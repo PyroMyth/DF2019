@@ -6,10 +6,10 @@
     <contextParameter comment="The password for the destination org" name="destPass" prompt="destPass?" promptNeeded="false" type="id_String" value=""/>
     <contextParameter comment="The base URL for the destination org (login.salesforce.com for production, test.salesforce.com for sandbox)" name="destURL" prompt="destURL?" promptNeeded="false" type="id_String" value=""/>
     <contextParameter comment="The username for the destination org" name="destUser" prompt="destUser?" promptNeeded="false" type="id_String" value=""/>
-    <contextParameter comment="Boolean indicating whether the job should perform DML, true to perform DML, false to skip DML" name="doDML" prompt="doDML?" promptNeeded="true" type="id_Boolean" value="false"/>
+    <contextParameter comment="Boolean indicating whether the job should perform DML, true to perform DML, false to skip DML" name="doDML" prompt="doDML?" promptNeeded="false" type="id_Boolean" value="true"/>
     <contextParameter comment="Boolean indicating whether the job should export common records (i.e. Users) from the destination org" name="exportRecordsFromDest" prompt="exportRecordsFromDest?" promptNeeded="false" type="id_Boolean" value="true"/>
     <contextParameter comment="Boolean indicating whether the job should export common records (i.e. Users) from the source org" name="exportRecordsFromSource" prompt="exportRecordsFromSource?" promptNeeded="false" type="id_Boolean" value="true"/>
-    <contextParameter comment="The base filepath to the expected migration directory structure" name="filePath" prompt="filePath?" promptNeeded="false" type="id_String" value="&quot;C:/Development/DF2019/Sandbox/&quot;"/>
+    <contextParameter comment="The base filepath to the expected migration directory structure" name="filePath" prompt="filePath?" promptNeeded="false" type="id_String" value="&quot;C:/development/DF2019/DF2019/Sandbox/&quot;"/>
     <contextParameter comment="The password for the source org" name="sourcePass" prompt="sourcePass?" promptNeeded="false" type="id_String" value=""/>
     <contextParameter comment="The base URL for the source org (login.salesforce.com for production, test.salesforce.com for sandbox)" name="sourceURL" prompt="sourceURL?" promptNeeded="false" type="id_String" value=""/>
     <contextParameter comment="The username for the source org" name="sourceUser" prompt="sourceUser?" promptNeeded="false" type="id_String" value=""/>
